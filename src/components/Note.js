@@ -2,9 +2,25 @@ import React from 'react';
 
 class Note extends React.Component {
   render() {
-    return (
+    
+    const {note} = this.props;
+
+    return (      
       <div className='note-container'>
-        Note Component
+        <form className='note-form'>
+          <input
+            className='note-title-input'
+            tyep='text'
+            placeholder="Note title..."
+            defaultValue={note.title}
+          />
+          <textarea 
+            className='note-textarea'
+            placeholder='Type here...'  
+            defaultValue={note.content}
+          />
+          <input className='note-button' type='submit' value='Submit' />
+        </form>
       </div>
     );
   }
