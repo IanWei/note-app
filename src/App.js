@@ -4,12 +4,14 @@ import Nav from './components/Nav';
 import List from './components/List';
 import Note from './components/Note';
 import axios from 'axios';
+import urlFor from './helpers/urlFor';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showNote: false
+      showNote: false,
+      notes: []
     };
   }
 
@@ -20,19 +22,26 @@ class App extends React.Component {
   }
 
   getNotes = () => {
-    axios.get('https://new-note-api-ian-wei.herokuapp.com/notes')
-    .then((res) => console.log(res.data))
+    axios.get(urlFor('notes'))
+    .then((res) => this.setState({notes: res.data}))
     .catch((err) => console.log(err.response.data));
   }
 
   render() {
 
-    const { showNote } = this.state;
+    const { showNote, notes } = this.state;
 
     return (
       <div>
         <Nav toggleNote={this.toggleNote} showNote={showNote}/>  
-        { showNote ? <Note /> : <List getNotes={this.getNotes}/> }
+        { showNote ? 
+          <Note /> 
+          : 
+          <List 
+            getNotes={this.getNotes}
+            notes = {notes}
+          /> 
+          }
       </div>
     );
   }
