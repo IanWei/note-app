@@ -52,7 +52,11 @@ class Note extends React.Component {
   renderTags(note) {
     if (note.tags) {
       return note.tags.map((tag,index) => 
-        <div className='tag' index={index}>
+        <div 
+          className='tag' 
+          index={index}
+          onClick={() => this.props.deleteTag(note.id, tag.id)}
+        >
           <span className='delete'>
             <i className='material-icons'>delete</i>
           </span>
